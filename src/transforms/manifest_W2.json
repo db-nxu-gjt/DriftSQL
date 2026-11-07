@@ -1,0 +1,172 @@
+{
+ "superhero": {
+  "db": "superhero",
+  "n_questions": 24,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "insert_newcats",
+     "table": "superhero",
+     "col": "id",
+     "n_rows": 10
+    }
+   ],
+   "2": [
+    {
+     "op": "insert_newcats",
+     "table": "superhero",
+     "col": "id",
+     "n_rows": 22
+    }
+   ],
+   "3": [
+    {
+     "op": "insert_newcats",
+     "table": "superhero",
+     "col": "id",
+     "n_rows": 45
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "superhero",
+   "cat_col": "id"
+  }
+ },
+ "student_club": {
+  "db": "student_club",
+  "n_questions": 18,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "insert_newcats",
+     "table": "member",
+     "col": "member_id",
+     "n_rows": 10
+    }
+   ],
+   "2": [
+    {
+     "op": "insert_newcats",
+     "table": "member",
+     "col": "member_id",
+     "n_rows": 20
+    }
+   ],
+   "3": [
+    {
+     "op": "insert_newcats",
+     "table": "member",
+     "col": "member_id",
+     "n_rows": 40
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "member",
+   "cat_col": "member_id"
+  }
+ },
+ "toxicology": {
+  "db": "toxicology",
+  "n_questions": 19,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "insert_newcats",
+     "table": "bond",
+     "col": "bond_id",
+     "n_rows": 123
+    }
+   ],
+   "2": [
+    {
+     "op": "insert_newcats",
+     "table": "bond",
+     "col": "bond_id",
+     "n_rows": 371
+    }
+   ],
+   "3": [
+    {
+     "op": "insert_newcats",
+     "table": "bond",
+     "col": "bond_id",
+     "n_rows": 742
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "bond",
+   "cat_col": "bond_id"
+  }
+ },
+ "thrombosis_prediction": {
+  "db": "thrombosis_prediction",
+  "n_questions": 32,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "insert_newcats",
+     "table": "Patient",
+     "col": "ID",
+     "n_rows": 12
+    }
+   ],
+   "2": [
+    {
+     "op": "insert_newcats",
+     "table": "Patient",
+     "col": "ID",
+     "n_rows": 37
+    }
+   ],
+   "3": [
+    {
+     "op": "insert_newcats",
+     "table": "Patient",
+     "col": "ID",
+     "n_rows": 74
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "Patient",
+   "cat_col": "ID"
+  }
+ },
+ "california_schools": {
+  "db": "california_schools",
+  "n_questions": 15,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "insert_newcats",
+     "table": "schools",
+     "col": "CDSCode",
+     "n_rows": 176
+    }
+   ],
+   "2": [
+    {
+     "op": "insert_newcats",
+     "table": "schools",
+     "col": "CDSCode",
+     "n_rows": 530
+    }
+   ],
+   "3": [
+    {
+     "op": "insert_newcats",
+     "table": "schools",
+     "col": "CDSCode",
+     "n_rows": 1061
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "schools",
+   "cat_col": "CDSCode"
+  }
+ }
+}

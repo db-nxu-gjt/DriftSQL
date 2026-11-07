@@ -1,0 +1,247 @@
+{
+ "superhero": {
+  "db": "superhero",
+  "n_questions": 25,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "add_distractor",
+     "table": "superhero",
+     "near": "superhero_name"
+    }
+   ],
+   "2": [
+    {
+     "op": "add_distractor",
+     "table": "superhero",
+     "near": "skin_colour_id",
+     "suffix": "v2"
+    },
+    {
+     "op": "rename_column",
+     "table": "superhero",
+     "col": "skin_colour_id",
+     "new": "skin_colour_id_deprecated"
+    }
+   ],
+   "3": [
+    {
+     "op": "rename_column",
+     "table": "superhero",
+     "col": "superhero_name",
+     "new": "superhero_name_current"
+    }
+   ],
+   "4": [
+    {
+     "op": "drop_column",
+     "table": "superhero",
+     "col": "superhero_name"
+    }
+   ],
+   "5": [
+    {
+     "op": "rename_table",
+     "table": "superhero",
+     "new": "superhero_archived"
+    }
+   ]
+  }
+ },
+ "student_club": {
+  "db": "student_club",
+  "n_questions": 17,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "add_distractor",
+     "table": "member",
+     "near": "last_name"
+    }
+   ],
+   "2": [
+    {
+     "op": "add_distractor",
+     "table": "member",
+     "near": "phone",
+     "suffix": "v2"
+    },
+    {
+     "op": "rename_column",
+     "table": "member",
+     "col": "phone",
+     "new": "phone_deprecated"
+    }
+   ],
+   "3": [
+    {
+     "op": "rename_column",
+     "table": "member",
+     "col": "last_name",
+     "new": "last_name_current"
+    }
+   ],
+   "4": [
+    {
+     "op": "drop_column",
+     "table": "member",
+     "col": "last_name"
+    }
+   ],
+   "5": [
+    {
+     "op": "rename_table",
+     "table": "member",
+     "new": "member_archived"
+    }
+   ]
+  }
+ },
+ "toxicology": {
+  "db": "toxicology",
+  "n_questions": 21,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "add_distractor",
+     "table": "atom",
+     "near": "element"
+    }
+   ],
+   "2": [
+    {
+     "op": "add_distractor",
+     "table": "atom",
+     "near": "molecule_id",
+     "suffix": "v2"
+    },
+    {
+     "op": "rename_column",
+     "table": "atom",
+     "col": "molecule_id",
+     "new": "molecule_id_deprecated"
+    }
+   ],
+   "3": [
+    {
+     "op": "rename_column",
+     "table": "atom",
+     "col": "element",
+     "new": "element_current"
+    }
+   ],
+   "4": [
+    {
+     "op": "drop_column",
+     "table": "atom",
+     "col": "element"
+    }
+   ],
+   "5": [
+    {
+     "op": "rename_table",
+     "table": "atom",
+     "new": "atom_archived"
+    }
+   ]
+  }
+ },
+ "thrombosis_prediction": {
+  "db": "thrombosis_prediction",
+  "n_questions": 31,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "add_distractor",
+     "table": "Laboratory",
+     "near": "LDH"
+    }
+   ],
+   "2": [
+    {
+     "op": "add_distractor",
+     "table": "Laboratory",
+     "near": "DNA-II",
+     "suffix": "v2"
+    },
+    {
+     "op": "rename_column",
+     "table": "Laboratory",
+     "col": "DNA-II",
+     "new": "DNA-II_deprecated"
+    }
+   ],
+   "3": [
+    {
+     "op": "rename_column",
+     "table": "Laboratory",
+     "col": "LDH",
+     "new": "LDH_current"
+    }
+   ],
+   "4": [
+    {
+     "op": "drop_column",
+     "table": "Laboratory",
+     "col": "LDH"
+    }
+   ],
+   "5": [
+    {
+     "op": "rename_table",
+     "table": "Laboratory",
+     "new": "Laboratory_archived"
+    }
+   ]
+  }
+ },
+ "california_schools": {
+  "db": "california_schools",
+  "n_questions": 18,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "add_distractor",
+     "table": "schools",
+     "near": "School"
+    }
+   ],
+   "2": [
+    {
+     "op": "add_distractor",
+     "table": "schools",
+     "near": "LastUpdate",
+     "suffix": "v2"
+    },
+    {
+     "op": "rename_column",
+     "table": "schools",
+     "col": "LastUpdate",
+     "new": "LastUpdate_deprecated"
+    }
+   ],
+   "3": [
+    {
+     "op": "rename_column",
+     "table": "schools",
+     "col": "School",
+     "new": "School_current"
+    }
+   ],
+   "4": [
+    {
+     "op": "drop_column",
+     "table": "schools",
+     "col": "School"
+    }
+   ],
+   "5": [
+    {
+     "op": "rename_table",
+     "table": "schools",
+     "new": "schools_archived"
+    }
+   ]
+  }
+ }
+}

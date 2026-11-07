@@ -1,0 +1,2852 @@
+[
+ {
+  "qid": 0,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "What is the highest eligible free rate for K-12 students in the schools in Alameda County?",
+  "sql": "SELECT `Free Meal Count (K-12)` / `Enrollment (K-12)` FROM frpm WHERE `County Name` = 'Alameda' ORDER BY (CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the highest eligible free rate for K-12 students at schools in Alameda County?",
+   "2": "In Alameda County, among schools, what is the maximum eligible free rate for students in grades K through 12?",
+   "3": "In Alameda County, what's the maximum eligible free rate among K-12 students at the schools?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 2,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "Please list the zip code of all the charter schools in Fresno County Office of Education.",
+  "sql": "SELECT T2.Zip FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.`District Name` = 'Fresno County Office of Education' AND T1.`Charter School (Y/N)` = 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Kindly list the zip code for all charter schools within Fresno County Office of Education.",
+   "2": "What are the zip codes for every charter school that falls under the Fresno County Office of Education?",
+   "3": "What are the zip codes for every charter school that falls under the Fresno County Office of Education?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 3,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "What is the unabbreviated mailing street address of the school with the highest FRPM count for K-12 students?",
+  "sql": "SELECT T2.MailStreet FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode ORDER BY T1.`FRPM Count (K-12)` DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the full mailing street address of the school that has the highest FRPM count for K-12 students?",
+   "2": "Which school, among those serving kindergarten through twelfth grade, has the greatest number of students eligible for free or reduced-price meals, and what is its full mailing street address?",
+   "3": "Which K-12 school has the largest number of students eligible for free or reduced-price meals, and what is its full mailing street address?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 18,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "How many schools in Fresno (directly funded) have number of test takers not more than 250?",
+  "sql": "SELECT COUNT(T1.CDSCode) FROM frpm AS T1 INNER JOIN satscores AS T2 ON T1.CDSCode = T2.cds WHERE T1.`Charter Funding Type` = 'Directly funded' AND T1.`County Name` = 'Fresno' AND T2.NumTstTakr <= 250",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the count of directly funded schools in Fresno with no more than 250 test takers?",
+   "2": "What is the count of directly funded schools located in Fresno where the number of test takers is 250 or fewer?",
+   "3": "What's the count of directly funded schools in Fresno where the test taker count is 250 or fewer?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 20,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "How many schools in Amador which the Low Grade is 9 and the High Grade is 12?",
+  "sql": "SELECT COUNT(T1.`School Name`) FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.County = 'Amador' AND T1.`Low Grade` = 9 AND T1.`High Grade` = 12",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many schools in Amador have a Low Grade of 9 and a High Grade of 12?",
+   "2": "What is the number of schools located in Amador that have a Low Grade of 9 and a High Grade of 12?",
+   "3": "What is the number of schools in Amador that have a lowest grade of 9 and a highest grade of 12?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 21,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "In Los Angeles how many schools have more than 500 free meals but less than 700 free or reduced price meals for K-12?",
+  "sql": "SELECT COUNT(CDSCode) FROM frpm WHERE `County Name` = 'Los Angeles' AND `Free Meal Count (K-12)` > 500 AND `FRPM Count (K-12)`< 700",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "In Los Angeles, how many schools have over 500 free meals but under 700 free or reduced price meals for K-12?",
+   "2": "What is the count of K-12 schools in Los Angeles that provide over 500 free meals yet fewer than 700 free or reduced-price meals?",
+   "3": "What is the number of K-12 schools in Los Angeles where the count of free meals is over 500 but the count of free or reduced price meals is under 700?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 25,
+  "db": "california_schools",
+  "difficulty": "moderate",
+  "question": "Name schools in Riverside which the average of average math score for SAT is grater than 400, what is the funding type of these schools?",
+  "sql": "SELECT T1.sname, T2.`Charter Funding Type` FROM satscores AS T1 INNER JOIN frpm AS T2 ON T1.cds = T2.CDSCode WHERE T2.`District Name` LIKE 'Riverside%' GROUP BY T1.sname, T2.`Charter Funding Type` HAVING CAST(SUM(T1.AvgScrMath) AS REAL) / COUNT(T1.cds) > 400",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "List the schools in Riverside where the average of average math score for SAT is greater than 400, what is the funding type of these schools?",
+   "2": "Which schools located in Riverside have an average of average SAT math scores above 400, and what is their funding type?",
+   "3": "What type of funding do Riverside schools have if their SAT math average score average is above 400?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 31,
+  "db": "california_schools",
+  "difficulty": "moderate",
+  "question": "What is the eligible free rate of the 10th and 11th schools with the highest enrolment for students in grades 1 through 12?",
+  "sql": "SELECT CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)` FROM frpm ORDER BY `Enrollment (K-12)` DESC LIMIT 9, 2",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the free eligible rate of the 10th and 11th schools with the highest enrollment for students in grades 1 through 12?",
+   "2": "Among schools serving grades 1 through 12, identify the ones ranked 10th and 11th by student enrollment, and report their eligible free rates.",
+   "3": "For students in grades 1 to 12, what are the eligible free rates for the 10th and 11th schools with the largest enrollment?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 32,
+  "db": "california_schools",
+  "difficulty": "moderate",
+  "question": "What is the eligible free or reduced price meal rate for the top 5 schools in grades 1-12 with the highest free or reduced price meal count of the schools with the ownership code 66?",
+  "sql": "SELECT CAST(T1.`FRPM Count (K-12)` AS REAL) / T1.`Enrollment (K-12)` FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.SOC = 66 ORDER BY T1.`FRPM Count (K-12)` DESC LIMIT 5",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the free or reduced price meal eligibility rate for the top 5 schools in grades 1-12 with the highest free or reduced price meal count among schools with ownership code 66?",
+   "2": "Among schools with ownership code 66, which 5 schools in grades 1-12 have the highest free or reduced price meal counts, and what is the eligible free or reduced price meal rate for each of those schools?",
+   "3": "Can you tell me the free or reduced-price meal eligibility rate for the five schools with the largest number of students receiving free or reduced-price meals, among schools with ownership code 66 that serve grades 1 through 12?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 35,
+  "db": "california_schools",
+  "difficulty": "moderate",
+  "question": "What is the administrator's email address of the chartered school with the fewest students enrolled in grades 1 through 12?",
+  "sql": "SELECT T2.AdmEmail1 FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.`Charter School (Y/N)` = 1 ORDER BY T1.`Enrollment (K-12)` ASC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the email address of the administrator for the chartered school with the lowest number of students enrolled in grades 1 through 12?",
+   "2": "Which chartered school has the lowest number of students enrolled in grades 1 to 12, and what is the email address of its administrator?",
+   "3": "For the charter school that has the lowest number of students in grades 1 to 12, what's the email address of its administrator?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 39,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "What is the average number of test takers from Fresno schools that opened between 1/1/1980 and 12/31/1980?",
+  "sql": "SELECT AVG(T1.NumTstTakr) FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode WHERE strftime('%Y', T2.OpenDate) = '1980' AND T2.County = 'Fresno'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": null,
+   "2": "For schools in Fresno that were established between January 1, 1980 and December 31, 1980, what is the mean count of test takers?",
+   "3": "For schools in Fresno that first opened their doors during 1980, what's the typical count of people taking tests?"
+  },
+  "rewrite_judge": {
+   "1": 0,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": false
+ },
+ {
+  "qid": 45,
+  "db": "california_schools",
+  "difficulty": "moderate",
+  "question": "What is the average writing score of each of the schools managed by Ricci Ulrich? List the schools and the corresponding average writing scores.",
+  "sql": "SELECT T2.School, T1.AvgScrWrite FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode WHERE T2.AdmFName1 = 'Ricci' AND T2.AdmLName1 = 'Ulrich'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the average writing score for each school managed by Ricci Ulrich? List the schools along with the corresponding average writing scores.",
+   "2": "For every school that Ricci Ulrich oversees, what is the mean writing score? Provide a list of the schools along with their average writing scores.",
+   "3": "Can you give me the average writing scores for all the schools that Ricci Ulrich oversees, and show each school alongside its average?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 48,
+  "db": "california_schools",
+  "difficulty": "moderate",
+  "question": "What is the ratio of merged Unified School District schools in Orange County to merged Elementary School District schools?",
+  "sql": "SELECT CAST(SUM(CASE WHEN DOC = 54 THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN DOC = 52 THEN 1 ELSE 0 END) FROM schools WHERE StatusType = 'Merged' AND County = 'Orange'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": null,
+   "2": "In Orange County, how does the count of merged schools in Unified School Districts compare with the count of merged schools in Elementary School Districts when expressed as a ratio?",
+   "3": "In Orange County, how does the number of merged schools in Unified School Districts compare to the number of merged schools in Elementary School Districts?"
+  },
+  "rewrite_judge": {
+   "1": 0,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": false
+ },
+ {
+  "qid": 49,
+  "db": "california_schools",
+  "difficulty": "moderate",
+  "question": "Which different county has the most number of closed schools? Please provide the name of each school as well as the closure date.",
+  "sql": "SELECT DISTINCT County, School, ClosedDate FROM schools WHERE County = ( SELECT County FROM schools WHERE StatusType = 'Closed' GROUP BY County ORDER BY COUNT(School) DESC LIMIT 1 ) AND StatusType = 'Closed' AND school IS NOT NULL",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Which distinct county has the highest number of closed schools? Please list the name of each school along with the closure date.",
+   "2": "Name the county that has the highest count of schools that have been closed, and for each such school, list its name and the date it was closed.",
+   "3": "Can you tell me which county, if any, has the highest count of schools that have been shut down, and list the name and closing date for every one of those schools?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 54,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "Please specify all of the schools and their related mailing zip codes that are under Avetik Atoian's administration.",
+  "sql": "SELECT School, MailZip FROM schools WHERE AdmFName1 = 'Avetik' AND AdmLName1 = 'Atoian'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "List all schools and their associated mailing zip codes that fall under Avetik Atoian's administration.",
+   "2": "List every school supervised by Avetik Atoian along with its associated mailing zip code.",
+   "3": "What are the zip codes for mailing at each school that Avetik Atoian oversees?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 57,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "What is the phone number and extension number for the school that had the 333rd highest average writing score?",
+  "sql": "SELECT T2.Phone, T2.Ext FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode ORDER BY T1.AvgScrWrite DESC LIMIT 332, 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What's the phone number and extension number of the school with the 333rd highest average writing score?",
+   "2": "Which school ranked 333rd in average writing score, and what are its phone and extension numbers?",
+   "3": "Could you give me the phone number and extension for the school whose average writing score was ranked 333rd?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 73,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "What is the free or reduced price meal count for ages 5 to 17 in the Youth Authority School with a mailing street address of PO Box 1040?",
+  "sql": "SELECT T1.`FRPM Count (Ages 5-17)` FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.MailStreet = 'PO Box 1040' AND T2.SOCType = 'Youth Authority Facilities'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the free or reduced-price meal count for ages 5 to 17 at the Youth Authority School with a mailing street address of PO Box 1040?",
+   "2": "How many students aged 5 through 17 at the Youth Authority School, whose mailing street address is PO Box 1040, are counted under the free or reduced price meal program?",
+   "3": "How many students aged 5 through 17 at the Youth Authority School, which has PO Box 1040 as its mailing address, are eligible for free or reduced-price meals?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 75,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "What is the educational level name for the schools with Breakfast Provision 2 in county code 37? Indicate the name of the school.",
+  "sql": "SELECT T2.EILName, T2.School FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.`NSLP Provision Status` = 'Breakfast Provision 2' AND T1.`County Code` = 37",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the name of the education level for schools with Breakfast Provision 2 in county code 37? Provide the school's name.",
+   "2": "In county code 37, list each school's name and the name of its educational level for schools that have Breakfast Provision 2.",
+   "3": "Can you tell me which school and its education level have Breakfast Provision 2 in county code 37?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 82,
+  "db": "california_schools",
+  "difficulty": "simple",
+  "question": "What is the grade span offered in the school with the highest longitude?",
+  "sql": "SELECT GSoffered FROM schools ORDER BY ABS(longitude) DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What grade span is offered at the school with the highest longitude?",
+   "2": "Which school has the greatest longitude, and what grades does it cover?",
+   "3": "Which school has the greatest longitude, and what grades does it cover?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 83,
+  "db": "california_schools",
+  "difficulty": "challenging",
+  "question": "Of the schools that offers a magnet program serving a grade span of Kindergarten to 8th grade, how many offers Multiple Provision Types? List the number of cities that offers a Kindergarten to 8th grade span and indicate how many schools are there serving such grade span for each city.",
+  "sql": "SELECT T2.City, COUNT(T2.CDSCode) FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.Magnet = 1 AND T2.GSoffered = 'K-8' AND T1.`NSLP Provision Status` = 'Multiple Provision Types' GROUP BY T2.City",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Of the schools that offer a magnet program serving a grade span from Kindergarten to 8th grade, how many offer Multiple Provision Types? List the number of cities that offer a Kindergarten to 8th grade span and indicate how many schools there are serving such grade span for each city.",
+   "2": "Among the schools with a magnet program covering grades K through 8, how many provide Multiple Provision Types? For every city that has a Kindergarten to 8th grade span, list the number of cities and show how many schools in each city serve that grade span.",
+   "3": "How many schools offer Multiple Provision Types among those with a magnet program covering Kindergarten through 8th grade? Also, for each city that has Kindergarten to 8th grade span, give the number of cities and show how many schools serve that grade span in each city."
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 205,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "Identify by their ID the molecules in which there is carbon.",
+  "sql": "SELECT T.molecule_id FROM atom AS T WHERE T.element = 'c'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Find by their ID the molecules that contain carbon.",
+   "2": "Which molecule IDs correspond to compounds that contain carbon?",
+   "3": "Show me the IDs of the molecules that contain carbon."
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 211,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "Indicate which atoms are connected in non-carcinogenic type molecules.",
+  "sql": "SELECT DISTINCT T1.atom_id FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id INNER JOIN connected AS T3 ON T1.atom_id = T3.atom_id WHERE T2.label = '-'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What atoms are connected in non-carcinogenic type molecules?",
+   "2": "Identify the atoms that are linked together in molecules that are not of the carcinogenic type.",
+   "3": "Which atoms are linked together in molecules that are not carcinogenic?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 216,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "Identify all connected atoms with a triple bond.",
+  "sql": "SELECT T2.atom_id, T2.atom_id2 FROM bond AS T1 INNER JOIN connected AS T2 ON T1.bond_id = T2.bond_id WHERE T1.bond_type = '#'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Find all bonded atoms that have a triple bond.",
+   "2": "Which atoms are linked together by a triple bond?",
+   "3": "Can you point out every pair of atoms that are linked together by a triple bond?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 219,
+  "db": "toxicology",
+  "difficulty": "challenging",
+  "question": "What is the percentage of carcinogenic molecules in triple type bonds?",
+  "sql": "SELECT CAST(COUNT(DISTINCT CASE WHEN T2.label = '+' THEN T2.molecule_id ELSE NULL END) AS REAL) * 100 / COUNT(DISTINCT T2.molecule_id) FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id INNER JOIN bond AS T3 ON T2.molecule_id = T3.molecule_id WHERE T3.bond_type = '#'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": null,
+   "2": null,
+   "3": null
+  },
+  "rewrite_judge": {
+   "1": 0,
+   "2": 0,
+   "3": 0
+  },
+  "rewrite_ok": false
+ },
+ {
+  "qid": 229,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "What is the type of bond that molecule TR000 has when involved in any bonds?",
+  "sql": "SELECT DISTINCT T.bond_type FROM bond AS T WHERE T.molecule_id = 'TR000'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What kind of bond does molecule TR000 have when it is involved in any bonds?",
+   "2": "When TR000 participates in bonds, what kind of bond is it?",
+   "3": "TR000's involved in bonds — what kind of bond is it?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 231,
+  "db": "toxicology",
+  "difficulty": "challenging",
+  "question": "Which bond type accounted for the majority of the bonds found in molecule TR010 and state whether or not this molecule is carcinogenic?",
+  "sql": "SELECT T.bond_type FROM ( SELECT T1.bond_type, COUNT(T1.molecule_id) FROM bond AS T1  WHERE T1.molecule_id = 'TR010' GROUP BY T1.bond_type ORDER BY COUNT(T1.molecule_id) DESC LIMIT 1 ) AS T",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What type of bond made up the majority of the bonds present in molecule TR010, and indicate whether this molecule is carcinogenic or not?",
+   "2": "In molecule TR010, what was the predominant type of bond among the bonds identified, and is this molecule classified as carcinogenic or not?",
+   "3": "What kind of bond made up most of the bonds in TR010, and is that molecule cancer-causing or not?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 247,
+  "db": "toxicology",
+  "difficulty": "challenging",
+  "question": "List all the elements of atoms that can not bond with any other atoms.",
+  "sql": "SELECT DISTINCT T.element FROM atom AS T WHERE T.element NOT IN ( SELECT DISTINCT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id )",
+  "base_family": "W2",
+  "rewrites": {
+   "1": null,
+   "2": "Provide a complete list of atom elements that are incapable of forming bonds with other atoms.",
+   "3": "Can you name every atomic element that is incapable of forming bonds with any other atoms?"
+  },
+  "rewrite_judge": {
+   "1": 0,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": false
+ },
+ {
+  "qid": 251,
+  "db": "toxicology",
+  "difficulty": "moderate",
+  "question": "What is the least common element of all carcinogenic molecules?",
+  "sql": "SELECT T.element FROM ( SELECT T2.element, COUNT(DISTINCT T2.molecule_id) FROM molecule AS T1 INNER JOIN atom AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.label = '+' GROUP BY T2.element ORDER BY COUNT(DISTINCT T2.molecule_id) LIMIT 1 ) t",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What element is the least common among all carcinogenic molecules?",
+   "2": "Which element appears least frequently across all molecules that are carcinogenic?",
+   "3": "Which element shows up the fewest times across all molecules that cause cancer?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 253,
+  "db": "toxicology",
+  "difficulty": "challenging",
+  "question": "List the elements of all the triple bonds.",
+  "sql": "SELECT DISTINCT T3.element FROM bond AS T1 INNER JOIN connected AS T2 ON T1.bond_id = T2.bond_id INNER JOIN atom AS T3 ON T2.atom_id = T3.atom_id WHERE T1.bond_type = '#'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "List all the elements of the triple bonds.",
+   "2": "Show me every element that participates in triple bonds.",
+   "3": "What are all the elements that have triple bonds?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 254,
+  "db": "toxicology",
+  "difficulty": "moderate",
+  "question": "What percentage of bonds have the most common combination of atoms' elements?",
+  "sql": "SELECT CAST((SELECT COUNT(T1.atom_id) FROM connected AS T1 INNER JOIN bond AS T2 ON T1.bond_id = T2.bond_id GROUP BY T2.bond_type ORDER BY COUNT(T2.bond_id) DESC LIMIT 1 ) AS REAL) * 100 / ( SELECT COUNT(atom_id) FROM connected )",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What percentage of bonds have the most frequent combination of elements of atoms?",
+   "2": "How many bonds, expressed as a percentage, share the element combination that occurs most frequently among atoms?",
+   "3": "How many bonds, as a percentage, share the most frequently occurring combination of elemental atoms?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 255,
+  "db": "toxicology",
+  "difficulty": "moderate",
+  "question": "What proportion of single bonds are carcinogenic? Please provide your answer as a percentage with five decimal places.",
+  "sql": "SELECT ROUND(CAST(COUNT(CASE WHEN T2.label = '+' THEN T1.bond_id ELSE NULL END) AS REAL) * 100 / COUNT(T1.bond_id),5) FROM bond AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.bond_type = '-'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What percentage of single bonds are carcinogenic? Please give your answer as a percentage with five decimal places.",
+   "2": "Out of all the single bonds, what percentage are carcinogenic? Give the result to five decimal places.",
+   "3": "Out of all the single bonds, what percentage are carcinogenic? I need the answer to five decimal places."
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 260,
+  "db": "toxicology",
+  "difficulty": "moderate",
+  "question": "Calculate the total atoms with triple-bond molecules containing the element phosphorus or bromine.",
+  "sql": "SELECT COUNT(T1.atom_id) FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id INNER JOIN bond AS T3 ON T2.molecule_id = T3.molecule_id WHERE T3.bond_type = '#' AND T1.element IN ('p', 'br')",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Determine the total atoms with triple-bond molecules that include phosphorus or bromine.",
+   "2": "What is the count of atoms in molecules that have triple bonds and include either phosphorus or bromine?",
+   "3": "How many atoms are in molecules that have triple bonds and include either phosphorus or bromine?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 261,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "Write down bond id for molecules that are carcinogenic.",
+  "sql": "SELECT DISTINCT T1.bond_id FROM bond AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T2.label = '+'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Record the bond id for molecules that are carcinogenic.",
+   "2": "Provide the bond IDs of molecules that have carcinogenic properties.",
+   "3": "What are the bond IDs of the molecules that cause cancer?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 268,
+  "db": "toxicology",
+  "difficulty": "challenging",
+  "question": "What are the elements for bond id TR001_10_11?",
+  "sql": "SELECT T2.element FROM connected AS T1 INNER JOIN atom AS T2 ON T1.atom_id = T2.atom_id WHERE T1.bond_id = 'TR001_10_11'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What elements exist for bond id TR001_10_11?",
+   "2": "List the elements associated with the bond whose ID is TR001_10_11.",
+   "3": "Can you tell me which elements correspond to the bond that has the ID TR001_10_11?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 269,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "How many bond id have element iodine?",
+  "sql": "SELECT COUNT(T3.bond_id) FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id INNER JOIN bond AS T3 ON T2.molecule_id = T3.molecule_id WHERE T1.element = 'i'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many bond ids are there for the element iodine?",
+   "2": "What is the count of bond IDs that contain the element iodine?",
+   "3": "What is the count of bond IDs that are associated with the element iodine?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 275,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "Give me the molecule ID of the double bond type.",
+  "sql": "SELECT DISTINCT T.molecule_id FROM bond AS T WHERE T.bond_type = '='",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Provide the molecule ID for the double bond type.",
+   "2": null,
+   "3": "What's the molecule ID for the double bond type?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 0,
+   "3": 1
+  },
+  "rewrite_ok": false
+ },
+ {
+  "qid": 276,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "Write down the atom IDs of the first and second atoms of triple bond type molecules.",
+  "sql": "SELECT T2.atom_id, T2.atom_id2 FROM bond AS T1 INNER JOIN connected AS T2 ON T1.bond_id = T2.bond_id WHERE T1.bond_type = '#'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "List the atom IDs for the first and second atoms in molecules with triple bond type.",
+   "2": "List the atom IDs for the initial and subsequent atoms in molecules that have triple bonds.",
+   "3": "What are the atom IDs for the first and second atoms in molecules that have a triple bond?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 278,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "How many of the single bond type molecules are non-carcinogenic?",
+  "sql": "SELECT COUNT(DISTINCT T2.molecule_id) FROM bond AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T2.label = '-' AND T1.bond_type = '-'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many molecules of the single bond type are not carcinogenic?",
+   "2": "What is the count of non-carcinogenic molecules that have a single bond type?",
+   "3": "What is the number of non-carcinogenic molecules that have a single bond type?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 282,
+  "db": "toxicology",
+  "difficulty": "challenging",
+  "question": "What is the ratio of Hydrogen elements in molecule ID TR006? List the ratio with its label.",
+  "sql": "WITH SubQuery AS (SELECT DISTINCT T1.atom_id, T1.element, T1.molecule_id, T2.label FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T2.molecule_id = 'TR006') SELECT CAST(COUNT(CASE WHEN element = 'h' THEN atom_id ELSE NULL END) AS REAL) / (CASE WHEN COUNT(atom_id) = 0 THEN NULL ELSE COUNT(atom_id) END) AS ratio, label FROM SubQuery GROUP BY label",
+  "base_family": "W2",
+  "rewrites": {
+   "1": null,
+   "2": "For molecule ID TR006, what is the labeled ratio of Hydrogen elements?",
+   "3": "In molecule TR006, what's the hydrogen element ratio? Please provide the ratio along with its label."
+  },
+  "rewrite_judge": {
+   "1": 0,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": false
+ },
+ {
+  "qid": 285,
+  "db": "toxicology",
+  "difficulty": "challenging",
+  "question": "Name chemical elements that form a bond TR001_10_11.",
+  "sql": "SELECT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id INNER JOIN bond AS T3 ON T2.bond_id = T3.bond_id WHERE T3.bond_id = 'TR001_10_11'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Name the chemical elements that create a TR001_10_11 bond.",
+   "2": "Which chemical elements are involved in the formation of a TR001_10_11 bond?",
+   "3": "What are the chemical elements that create a TR001_10_11 bond?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 289,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "Is molecule TR151 carcinogenic?",
+  "sql": "SELECT T.label FROM molecule AS T WHERE T.molecule_id = 'TR151'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Is the molecule TR151 carcinogenic?",
+   "2": "Does the molecule TR151 have carcinogenic properties?",
+   "3": "Does the compound TR151 have the potential to cause cancer?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 292,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "Identify the atoms belong to the molecule with ID between TR010 to TR050 that contain the element carbon.",
+  "sql": "SELECT T.atom_id FROM atom AS T WHERE T.molecule_id BETWEEN 'TR010' AND 'TR050' AND T.element = 'c'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Find the atoms that are part of the molecule with ID from TR010 to TR050 and contain the element carbon.",
+   "2": "Which atoms make up the molecules whose IDs fall in the range TR010 through TR050 and include carbon as an element?",
+   "3": "Which atoms are part of molecules whose IDs fall in the range TR010 through TR050 and include carbon?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 295,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "How many atoms belong to the molecule that element is hydrogen and labeled with carcinogenic compound?",
+  "sql": "SELECT COUNT(T1.atom_id) AS atomnums_h FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T2.label = '+' AND T1.element = 'h'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many atoms are part of the molecule whose element is hydrogen and that is labeled a carcinogenic compound?",
+   "2": "What is the count of atoms in the molecule whose element is hydrogen and which is tagged as a carcinogenic compound?",
+   "3": "What is the total number of atoms in the molecule where the element is hydrogen and it is tagged as a carcinogenic compound?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 298,
+  "db": "toxicology",
+  "difficulty": "moderate",
+  "question": "Calculate the percentage of molecules containing carcinogenic compounds that element is hydrogen.",
+  "sql": "SELECT CAST(COUNT(CASE WHEN T1.element = 'h' AND T2.label = '+' THEN T2.molecule_id ELSE NULL END) AS REAL) * 100 / COUNT(T2.molecule_id) FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What percentage of molecules that contain carcinogenic compounds have hydrogen as an element?",
+   "2": "What proportion of the molecules that include carcinogenic compounds have hydrogen as an element?",
+   "3": "What proportion of the molecules that have carcinogenic compounds are made up of hydrogen as an element?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 299,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "Is molecule TR124 carcinogenic?",
+  "sql": "SELECT T.label FROM molecule AS T WHERE T.molecule_id = 'TR124'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Is the molecule TR124 carcinogenic?",
+   "2": "Does the molecule TR124 have carcinogenic properties?",
+   "3": "Does the molecule TR124 have the potential to cause cancer?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 301,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "What is the bond type of TR007_4_19?",
+  "sql": "SELECT T.bond_type FROM bond AS T WHERE T.bond_id = 'TR007_4_19'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What kind of bond is TR007_4_19?",
+   "2": "Could you tell me which type of bond TR007_4_19 has?",
+   "3": "Can you tell me what kind of bond TR007_4_19 is?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 309,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "List out the atom id that belongs to the TR346 molecule and how many bond type can be created by this molecule?",
+  "sql": "SELECT T1.atom_id, COUNT(DISTINCT T2.bond_type),T1.molecule_id FROM atom AS T1 INNER JOIN bond AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.molecule_id = 'TR000' GROUP BY T1.atom_id, T2.bond_type",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "List the atom id belonging to the TR346 molecule and how many bond types can be formed by this molecule?",
+   "2": "Identify the atom IDs associated with the TR346 molecule, and determine the number of distinct bond types that this molecule is capable of forming.",
+   "3": "What atom IDs are associated with the TR346 molecule, and what is the number of possible bond types that this molecule can form?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 314,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "How many single bonds are there in the list?",
+  "sql": "SELECT COUNT(T.bond_id) FROM bond AS T WHERE T.bond_type = '-'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many single bonds are present in the list?",
+   "2": "In the list, what is the count of single bonds?",
+   "3": "What is the total number of single bonds included in the list?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 320,
+  "db": "toxicology",
+  "difficulty": "moderate",
+  "question": "What is the type of the bond which is presenting the connection between two atoms TR000_1 and TR000_2?",
+  "sql": "SELECT T1.bond_type FROM bond AS T1 INNER JOIN connected AS T2 ON T1.bond_id = T2.bond_id WHERE T2.atom_id = 'TR000_1' AND T2.atom_id2 = 'TR000_2'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What kind of bond is showing the connection between the two atoms TR000_1 and TR000_2?",
+   "2": "Which bond type connects the two atoms TR000_1 and TR000_2?",
+   "3": "What kind of bond connects the two atoms TR000_1 and TR000_2?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 327,
+  "db": "toxicology",
+  "difficulty": "moderate",
+  "question": "Which non-carcinogenic molecules consisted more than 5 atoms?",
+  "sql": "SELECT T.molecule_id FROM ( SELECT T1.molecule_id, COUNT(T2.atom_id) FROM molecule AS T1 INNER JOIN atom AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.label = '-' GROUP BY T1.molecule_id HAVING COUNT(T2.atom_id) > 5 ) t",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Which molecules that are non-carcinogenic consisted of more than 5 atoms?",
+   "2": "Can you list the molecules that are not carcinogenic and are made up of over 5 atoms?",
+   "3": "Can you tell me which molecules that aren't carcinogenic have over 5 atoms?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 331,
+  "db": "toxicology",
+  "difficulty": "simple",
+  "question": "How many of the molecules are carcinogenic?",
+  "sql": "SELECT COUNT(T.molecule_id) FROM molecule AS T WHERE T.label = '+'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What number of the molecules are carcinogenic?",
+   "2": "What is the count of molecules that are classified as carcinogenic?",
+   "3": "What is the number of molecules that cause cancer?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 338,
+  "db": "toxicology",
+  "difficulty": "moderate",
+  "question": "What is the atom ID of double bonded carbon in TR012 molecule?",
+  "sql": "SELECT T1.atom_id FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id INNER JOIN bond AS T3 ON T2.molecule_id = T3.molecule_id WHERE T2.molecule_id = 'TR012' AND T3.bond_type = '=' AND T1.element = 'c'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the atom ID of the double bonded carbon in the TR012 molecule?",
+   "2": "In the TR012 molecule, which atom ID corresponds to the carbon that is double bonded?",
+   "3": "In the TR012 molecule, which atom ID corresponds to the carbon that has a double bond?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 718,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "How many superheroes have the super power of \"Super Strength\"?",
+  "sql": "SELECT COUNT(T1.hero_id) FROM hero_power AS T1 INNER JOIN superpower AS T2 ON T1.power_id = T2.id WHERE T2.power_name = 'Super Strength'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many superheroes possess the super power of \"Super Strength\"?",
+   "2": "What is the total number of superheroes whose super power is \"Super Strength\"?",
+   "3": "What's the total number of superheroes that possess the super power known as \"Super Strength\"?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 719,
+  "db": "superhero",
+  "difficulty": "moderate",
+  "question": "Among the superheroes with the super power of \"Super Strength\", how many of them have a height of over 200cm?",
+  "sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T3.power_name = 'Super Strength' AND T1.height_cm > 200",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many superheroes with the super power \"Super Strength\" have a height over 200cm?",
+   "2": "How many superheroes possessing the \"Super Strength\" super power are taller than 200cm?",
+   "3": "How many superheroes that have Super Strength as a power are taller than 200cm?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 726,
+  "db": "superhero",
+  "difficulty": "moderate",
+  "question": "Rank heroes published by Marvel Comics by their height in descending order.",
+  "sql": "SELECT superhero_name, height_cm, RANK() OVER (ORDER BY height_cm DESC) AS HeightRank FROM superhero INNER JOIN publisher ON superhero.publisher_id = publisher.id WHERE publisher.publisher_name = 'Marvel Comics'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Order Marvel Comics heroes by their height in descending order.",
+   "2": "List the heroes from Marvel Comics, ordered from tallest to shortest.",
+   "3": "Could you list the Marvel Comics heroes from tallest to shortest?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 728,
+  "db": "superhero",
+  "difficulty": "moderate",
+  "question": "Rank superheroes from Marvel Comics by their eye color popularity, starting with the most common color.",
+  "sql": "SELECT colour.colour AS EyeColor, COUNT(superhero.id) AS Count, RANK() OVER (ORDER BY COUNT(superhero.id) DESC) AS PopularityRank FROM superhero INNER JOIN colour ON superhero.eye_colour_id = colour.id INNER JOIN publisher ON superhero.publisher_id = publisher.id WHERE publisher.publisher_name = 'Marvel Comics' GROUP BY colour.colour",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Order Marvel Comics superheroes by the popularity of their eye color, beginning with the most frequent color.",
+   "2": "List the Marvel Comics superheroes in order of how popular each eye color is, beginning with the most prevalent one.",
+   "3": "What are the most popular eye colors among Marvel superheroes, ordered from the most frequent to the least?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 734,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "What is the publisher's name of Blue Beetle II?",
+  "sql": "SELECT T2.publisher_name FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T1.superhero_name = 'Blue Beetle II'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the name of the publisher of Blue Beetle II?",
+   "2": "Which company published Blue Beetle II, and what is its name?",
+   "3": "Who published Blue Beetle II?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 735,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "How many superheroes with blonde hair are there?",
+  "sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.hair_colour_id = T2.id WHERE T2.colour = 'Blond'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many superheroes have blonde hair?",
+   "2": "What is the total number of superheroes that have blonde hair?",
+   "3": "What is the total count of blonde-haired superheroes?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 737,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "What is Copycat's race?",
+  "sql": "SELECT T2.race FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T1.superhero_name = 'Copycat'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What race is Copycat?",
+   "2": "Which race does Copycat belong to?",
+   "3": "What race does Copycat belong to?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 743,
+  "db": "superhero",
+  "difficulty": "challenging",
+  "question": "What is the percentage of superheroes who act in their own self-interest or make decisions based on their own moral code? Indicate how many of the said superheroes were published by Marvel Comics.",
+  "sql": "SELECT (CAST(COUNT(*) AS REAL) * 100 / (SELECT COUNT(*) FROM superhero)), CAST(SUM(CASE WHEN T2.publisher_name = 'Marvel Comics' THEN 1 ELSE 0 END) AS REAL) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN alignment AS T3 ON T3.id = T1.alignment_id WHERE T3.alignment = 'Bad'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What percentage of superheroes act in their own self-interest or make decisions based on their own moral code? Indicate how many of these superheroes were published by Marvel Comics.",
+   "2": "Out of all superheroes, what share have motivations rooted in self-interest or follow their personal ethical beliefs? Of those superheroes, how many had Marvel Comics as their publisher?",
+   "3": "What proportion of superheroes operate out of self-interest or follow their own personal moral compass? And of those superheroes, how many come from Marvel Comics?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 749,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "Provide the superpowers of the superhero called Deathlok.",
+  "sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.superhero_name = 'Deathlok'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What are the superpowers of the superhero named Deathlok?",
+   "2": "What are the superpowers possessed by the superhero whose name is Deathlok?",
+   "3": "What are the abilities that belong to the superhero named Deathlok?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 750,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "What is the average weight of all female superheroes?",
+  "sql": "SELECT AVG(T1.weight_kg) FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id WHERE T2.gender = 'Female'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the mean weight of all female superheroes?",
+   "2": "How much do female superheroes weigh on average?",
+   "3": "Can you tell me how much female superheroes weigh on average?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 765,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "How many heroes have stealth power?",
+  "sql": "SELECT COUNT(T1.hero_id) FROM hero_power AS T1 INNER JOIN superpower AS T2 ON T1.power_id = T2.id WHERE T2.power_name = 'Stealth'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What number of heroes possess stealth power?",
+   "2": "What is the total number of heroes possessing the stealth power?",
+   "3": "What's the total number of heroes that possess stealth abilities?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 766,
+  "db": "superhero",
+  "difficulty": "moderate",
+  "question": "What is the hero's full name with the highest attribute in strength?",
+  "sql": "SELECT T1.full_name FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN attribute AS T3 ON T2.attribute_id = T3.id WHERE T3.attribute_name = 'Strength' ORDER BY T2.attribute_value DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the full name of the hero with the highest strength attribute?",
+   "2": "Name the hero whose strength attribute is the greatest, giving their complete name.",
+   "3": "Who has the top strength attribute, and what's their full hero name?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 772,
+  "db": "superhero",
+  "difficulty": "challenging",
+  "question": "List the eyes, hair and skin colour of all female superheroes published by Dark Horse Comics.",
+  "sql": "SELECT T1.eye_colour_id, T1.hair_colour_id, T1.skin_colour_id FROM superhero AS T1 INNER JOIN publisher AS T2 ON T2.id = T1.publisher_id INNER JOIN gender AS T3 ON T3.id = T1.gender_id WHERE T2.publisher_name = 'Dark Horse Comics' AND T3.gender = 'Female'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Provide the eye, hair and skin colour for all female superheroes that Dark Horse Comics published.",
+   "2": "Provide the eye, hair, and skin colors for every female superhero that Dark Horse Comics has published.",
+   "3": "What eye, hair, and skin colors do all the female superheroes from Dark Horse Comics have?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 780,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "List the powers of Hunter Zolomon.",
+  "sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.full_name = 'Hunter Zolomon'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Name the abilities of Hunter Zolomon.",
+   "2": "What abilities does Hunter Zolomon have?",
+   "3": "What abilities does Hunter Zolomon have?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 786,
+  "db": "superhero",
+  "difficulty": "moderate",
+  "question": "How many heroes have the highest attribute value in strength?",
+  "sql": "SELECT COUNT(T1.hero_id) FROM hero_attribute AS T1 INNER JOIN attribute AS T2 ON T1.attribute_id = T2.id WHERE T2.attribute_name = 'Strength' AND T1.attribute_value = ( SELECT MAX(attribute_value) FROM hero_attribute )",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the number of heroes that have the highest value in the strength attribute?",
+   "2": "What is the count of heroes whose strength attribute is at the maximum value?",
+   "3": "What's the number of heroes whose strength attribute is at the maximum value?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 796,
+  "db": "superhero",
+  "difficulty": "moderate",
+  "question": "State all of 3-D Man's attributes along with their values.",
+  "sql": "SELECT T3.attribute_name, T2.attribute_value FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN attribute AS T3 ON T2.attribute_id = T3.id WHERE T1.superhero_name = '3-D Man'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "List every attribute of 3-D Man together with its values.",
+   "2": "List every attribute and its corresponding value for 3-D Man.",
+   "3": "Can you list every attribute that belongs to 3-D Man, including the value for each one?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 803,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "What is the power ID of cryokinesis?",
+  "sql": "SELECT id FROM superpower WHERE power_name = 'Cryokinesis'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the ID of the power cryokinesis?",
+   "2": "Could you tell me which power ID corresponds to the ability called cryokinesis?",
+   "3": "Could you tell me which power ID corresponds to cryokinesis?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 806,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "Provide the eye colour of the superhero who has Karen Beecher-Duncan as their full name.",
+  "sql": "SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.full_name = 'Karen Beecher-Duncan'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the eye colour of the superhero whose full name is Karen Beecher-Duncan?",
+   "2": "What is the eye color of the superhero whose full name is Karen Beecher-Duncan?",
+   "3": "What's the eye color for the superhero whose full name is Karen Beecher-Duncan?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 807,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "What is the superpowers of the superhero has Helen Parr as their full name?",
+  "sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.full_name = 'Helen Parr'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What are the superpowers of the superhero whose full name is Helen Parr?",
+   "2": "Which superhero's full name is Helen Parr, and what superpowers do they have?",
+   "3": "What superpowers belong to the superhero whose full name is Helen Parr?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 808,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "Find the race of the superhero who weighs 108kg and is 188cm tall.",
+  "sql": "SELECT DISTINCT T2.race FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T1.weight_kg = 108 AND T1.height_cm = 188",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Determine the race of the superhero that is 188cm tall and weighs 108kg.",
+   "2": "What is the race of the superhero whose height is 188cm and weight is 108kg?",
+   "3": "What race is the superhero that is 188cm tall and weighs 108kg?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 811,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "Give the alignment and superpowers of the superhero named Atom IV.",
+  "sql": "SELECT T4.alignment, T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T3.id = T2.power_id INNER JOIN alignment AS T4 ON T1.alignment_id = T4.id WHERE T1.superhero_name = 'Atom IV'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What are the alignment and superpowers for the superhero called Atom IV?",
+   "2": "What are the superpowers and alignment for the superhero whose name is Atom IV?",
+   "3": "What are the alignment and superpowers for the superhero called Atom IV?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 818,
+  "db": "superhero",
+  "difficulty": "challenging",
+  "question": "Among the bad superheroes, what is the percentage of female superheroes?",
+  "sql": "SELECT CAST(COUNT(CASE WHEN T3.gender = 'Female' THEN T1.id ELSE NULL END) AS REAL) * 100 / COUNT(T1.id) FROM superhero AS T1 INNER JOIN alignment AS T2 ON T1.alignment_id = T2.id INNER JOIN gender AS T3 ON T1.gender_id = T3.id WHERE T2.alignment = 'Bad'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Of the bad superheroes, what percentage are female superheroes?",
+   "2": "What proportion of superheroes who are bad are female?",
+   "3": "What percentage of the superheroes who are bad are women?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 830,
+  "db": "superhero",
+  "difficulty": "moderate",
+  "question": "Identify the weakest attribute of the Black Panther.",
+  "sql": "SELECT T3.attribute_name FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN attribute AS T3 ON T2.attribute_id = T3.id WHERE T1.superhero_name = 'Black Panther' ORDER BY T2.attribute_value ASC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Determine the weakest attribute of the Black Panther.",
+   "2": "Which attribute of the Black Panther is the least strong?",
+   "3": "What would you say is the Black Panther's least strong quality?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 832,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "Name the tallest superhero.",
+  "sql": "SELECT superhero_name FROM superhero ORDER BY height_cm DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the name of the tallest superhero?",
+   "2": "What is the name of the superhero with the greatest height?",
+   "3": "What is the name of the superhero who is the tallest?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 833,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "Name the superhero, otherwise known as Charles Chandler.",
+  "sql": "SELECT superhero_name FROM superhero WHERE full_name = 'Charles Chandler'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the superhero also known as Charles Chandler?",
+   "2": "What is the name of the superhero whose alternate identity is Charles Chandler?",
+   "3": "What is the superhero name for Charles Chandler?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 836,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "What is the total number of superheroes that have John as their first name?",
+  "sql": "SELECT COUNT(id) FROM superhero WHERE full_name LIKE 'John%'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many superheroes in total have John as their first name?",
+   "2": "How many superheroes are there whose first name is John?",
+   "3": "How many superheroes are there whose first name is John?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 839,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "In superheroes with weight less than 100, list the full name of the superheroes with brown eyes.",
+  "sql": "SELECT T1.full_name FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.weight_kg < 100 AND T2.colour = 'Brown'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Among superheroes weighing under 100, list the full name of those with brown eyes.",
+   "2": "Among the superheroes whose weight is under 100, what are the full names of those who have brown eyes?",
+   "3": "Could you tell me the full names of any superheroes who have brown eyes and weigh under 100?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 842,
+  "db": "superhero",
+  "difficulty": "simple",
+  "question": "Calculate the average height of all neutral superheroes.",
+  "sql": "SELECT AVG(T1.height_cm) FROM superhero AS T1 INNER JOIN alignment AS T2 ON T1.alignment_id = T2.id WHERE T2.alignment = 'Neutral'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Determine the mean height for all superheroes who are neutral.",
+   "2": "What is the mean height for superheroes with a neutral alignment?",
+   "3": "What is the mean height for superheroes with a neutral alignment?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1155,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "List the patient ID, sex and birthday of patient with LDH beyond normal range.",
+  "sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.LDH > 500",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Provide the patient ID, sex, and birthday for patients whose LDH is above the normal range.",
+   "2": "Provide the ID, gender, and date of birth for any patient whose LDH level is outside the normal limits.",
+   "3": "Could you show me the patient ID, gender, and date of birth for patients whose LDH levels are outside the normal range?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1156,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "State the ID and age of patient with positive degree of coagulation.",
+  "sql": "SELECT DISTINCT T1.ID, STRFTIME('%Y', CURRENT_TIMESTAMP) - STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID WHERE T2.RVVT = '+'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Give the ID and age of the patient whose coagulation degree is positive.",
+   "2": "What is the age of the patient whose coagulation degree is positive, and what is their ID?",
+   "3": "What are the ID and age of the patient whose coagulation degree is positive?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1162,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "How many female patients who came at the hospital in 1997 was immediately followed at the outpatient clinic?",
+  "sql": "SELECT COUNT(*) FROM Patient WHERE STRFTIME('%Y', Description) = '1997' AND SEX = 'F' AND Admission = '-'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many female patients who visited the hospital in 1997 were immediately followed up at the outpatient clinic?",
+   "2": "In 1997, what number of female patients visiting the hospital had an immediate follow-up at the outpatient clinic?",
+   "3": "What is the count of women who visited the hospital during 1997 and had an immediate follow-up appointment at the outpatient clinic?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1167,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "For the year that concluded on December 31, 1998, how many male patients on average were tested in the lab each month?",
+  "sql": "SELECT CAST(COUNT(T1.ID) AS REAL) / 12 FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE STRFTIME('%Y', T2.Date) = '1998' AND T1.SEX = 'M'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For the year ending December 31, 1998, how many male patients on average were tested monthly in the lab?",
+   "2": "During 1998, what was the average number of male patients tested in the lab per month?",
+   "3": "In 1998, what was the average number of male patients tested in the lab per month?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1175,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "How old was the patient who had the highest hemoglobin count at the time of the examination, and what is the doctor's diagnosis?",
+  "sql": "SELECT STRFTIME('%Y', T2.Date) - STRFTIME('%Y', T1.Birthday), T1.Diagnosis FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID ORDER BY T2.HGB DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What was the age of the patient with the highest hemoglobin count at the time of the examination, and what diagnosis did the doctor give?",
+   "2": "At the time of the examination, what was the age of the patient with the highest hemoglobin count, and what diagnosis did the doctor give?",
+   "3": "What was the age of the patient with the highest hemoglobin level recorded during the exam, and what diagnosis did the doctor give?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1177,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "Was the total cholesterol status for the patient id 2927464 on 1995-9-4 at the normal level?",
+  "sql": "SELECT CASE WHEN `T-CHO` < 250 THEN 'Normal' ELSE 'Abnormal' END FROM Laboratory WHERE ID = 2927464 AND Date = '1995-09-04'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Did the patient with id 2927464 have a normal total cholesterol status on 1995-9-4?",
+   "2": "Did patient 2927464 have a total cholesterol status within the normal range on September 4, 1995?",
+   "3": "Did patient 2927464 have a normal total cholesterol reading on September 4, 1995?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1179,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "For the patient who was diagnosed with SLE on 1994/2/19, what was his/her anti-Cardiolipin antibody concentration status on 1993/11/12?",
+  "sql": "SELECT `aCL IgA`, `aCL IgG`, `aCL IgM` FROM Examination WHERE ID IN ( SELECT ID FROM Patient WHERE Diagnosis = 'SLE' AND Description = '1994-02-19' ) AND `Examination Date` = '1993-11-12'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For the patient diagnosed with SLE on 1994/2/19, what was their anti-Cardiolipin antibody concentration status on 1993/11/12?",
+   "2": "Identify the anti-Cardiolipin antibody concentration status recorded on 1993/11/12 for the patient whose SLE diagnosis date is 1994/2/19.",
+   "3": "What was the anti-Cardiolipin antibody concentration status on 1993/11/12 for the patient whose SLE diagnosis date was 1994/2/19?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1181,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "For the patient who got the laboratory test of uric acid level as 8.4 on 1991-10-21, how old was he/she at that time?",
+  "sql": "SELECT STRFTIME('%Y', T2.Date) - STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.UA = 8.4 AND T2.Date = '1991-10-21'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For the patient whose uric acid level laboratory test was 8.4 on 1991-10-21, what was his/her age at that time?",
+   "2": "On 1991-10-21, what was the age of the patient whose uric acid laboratory test result was 8.4?",
+   "3": "What was the age of the patient on 1991-10-21 when their uric acid lab result was 8.4?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1183,
+  "db": "thrombosis_prediction",
+  "difficulty": "challenging",
+  "question": "For the patient who was diagnosed SLE on 1997/1/27, what was his/her original diagnose when he/she came to the hospital for the first time?",
+  "sql": "SELECT T1.Diagnosis FROM Patient AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID WHERE T1.ID = ( SELECT ID FROM Examination WHERE `Examination Date` = '1997-01-27' AND Diagnosis = 'SLE' ) AND T2.`Examination Date` = T1.`First Date`",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For the patient diagnosed with SLE on 1997/1/27, what was his/her initial diagnosis when he/she first came to the hospital?",
+   "2": "What was the initial diagnosis given to the patient at their first hospital visit, considering that this patient received an SLE diagnosis on January 27, 1997?",
+   "3": "For the patient with an SLE diagnosis dated January 27, 1997, what diagnosis did they receive on their very first visit to the hospital?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1190,
+  "db": "thrombosis_prediction",
+  "difficulty": "challenging",
+  "question": "What percentage of patients with a proteinuria level within the normal range have a uric acid level below the normal range?",
+  "sql": "SELECT CAST(SUM(CASE WHEN UA <= 6.5 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(ID) FROM Laboratory WHERE `U-PRO` > 0 AND `U-PRO` < 30",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What percent of patients whose proteinuria level is within the normal range have a uric acid level below the normal range?",
+   "2": "Among patients whose proteinuria falls in the normal range, what proportion has a uric acid level under the normal range?",
+   "3": "Among patients whose proteinuria is in the normal range, what proportion have uric acid below the normal range?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1192,
+  "db": "thrombosis_prediction",
+  "difficulty": "challenging",
+  "question": "List all patients who were followed up at the outpatient clinic who underwent a laboratory test in October 1991 and had a total blood bilirubin level within the normal range.",
+  "sql": "SELECT DISTINCT T1.ID FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.Admission = '-' AND T2.`T-BIL` < 2.0 AND T2.Date LIKE '1991-10-%'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Name all patients followed up at the outpatient clinic who had a laboratory test in October 1991 and had a total blood bilirubin level within the normal range.",
+   "2": "Provide the names of every patient seen in the outpatient clinic follow-up, who had a laboratory test during October 1991, and whose total bilirubin in the blood fell within normal limits.",
+   "3": "Can you show me every patient seen in the outpatient clinic who had lab work done in October 1991 and whose total bilirubin in the blood was normal?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1198,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "How many female patients were given an APS diagnosis?",
+  "sql": "SELECT COUNT(ID) FROM Patient WHERE SEX = 'F' AND Diagnosis = 'APS'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many female patients received an APS diagnosis?",
+   "2": "What is the count of patients who are female and have received a diagnosis of APS?",
+   "3": "What's the count of women who have been diagnosed with APS?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1207,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "List all patients with their sex and date of birthday, whose AST glutamic oxaloacetic transaminase (GOT) index is within normal range for loboratory examination in 1994.",
+  "sql": "SELECT DISTINCT T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GOT < 60 AND STRFTIME('%Y', T2.Date) = '1994'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "List all patients along with their sex and date of birth, whose AST glutamic oxaloacetic transaminase (GOT) index falls within the normal range for laboratory examination in 1994.",
+   "2": "Show the sex and birth date of every patient who had a laboratory examination in 1994 where the AST glutamic oxaloacetic transaminase (GOT) index fell within the normal range.",
+   "3": "Can you show me every patient's gender and birth date for those whose AST (GOT) levels were normal in lab tests during 1994?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1209,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "Please provide the diagnosis of patients with ALT glutamic pylvic transaminase beyond the normal range by ascending order of their date of birth.",
+  "sql": "SELECT DISTINCT T1.Diagnosis FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GPT > 60 ORDER BY T1.Birthday ASC",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Provide the diagnosis for patients whose ALT glutamic pyruvic transaminase is above the normal range, ordered by their date of birth in ascending order.",
+   "2": "Could you list the diagnoses for patients whose ALT glutamic pyruvic transaminase levels are above the normal range, sorted from earliest to latest date of birth?",
+   "3": "Could you list the diagnoses for patients whose ALT (glutamic pyruvic transaminase) levels are above the normal range, sorted by their birth dates from earliest to latest?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1220,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "Provide all ID, sex and birthday of patients whose urea nitrogen (UN) just within the borderline of passing?",
+  "sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.UN = 29",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Give all ID, sex and birthday of patients whose urea nitrogen (UN) is just within the borderline of passing?",
+   "2": "List the ID, sex, and birthday for every patient whose urea nitrogen (UN) is right at the borderline of passing.",
+   "3": "Show me the IDs, genders, and dates of birth for every patient whose urea nitrogen (UN) level is right at the edge of the normal range."
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1227,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "What is the average age of the male patient with high cholesterol?",
+  "sql": "SELECT AVG(STRFTIME('%Y', date('NOW')) - STRFTIME('%Y', T1.Birthday)) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.`T-CHO` >= 250 AND T1.SEX = 'M'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the mean age of the male patient with elevated cholesterol?",
+   "2": "For the male patient who has high cholesterol, what is the mean age?",
+   "3": "On average, how old is the male patient who has high cholesterol?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1230,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "List all outpatient within normal range of creatinine phosphokinase. Give me the distinct ids.",
+  "sql": "SELECT DISTINCT T1.ID FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.CPK < 250 AND T1.Admission = '-'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Show me the distinct ids for all outpatients within the normal range of creatinine phosphokinase.",
+   "2": "Show me the unique IDs of every outpatient whose creatinine phosphokinase level falls within the normal range.",
+   "3": "Show me the unique IDs for outpatients whose creatinine phosphokinase levels are within the normal range."
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1231,
+  "db": "thrombosis_prediction",
+  "difficulty": "challenging",
+  "question": "For patient born between 1936-1956, how many male patients have creatinine phosphokinase beyond the normal range?",
+  "sql": "SELECT COUNT(DISTINCT T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE STRFTIME('%Y', T1.Birthday) BETWEEN '1936' AND '1956' AND T1.SEX = 'M' AND T2.CPK >= 250",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For patients born between 1936 and 1956, how many male patients have creatinine phosphokinase above the normal range?",
+   "2": "Among patients whose birth years fall from 1936 to 1956, what is the count of male individuals with creatinine phosphokinase levels above the normal range?",
+   "3": "What is the count of male patients with creatinine phosphokinase levels above the normal range, among those born from 1936 to 1956?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1240,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "From laboratory examinations in 1991, what is the average hematoclit level that is lower than the normal range.",
+  "sql": "SELECT AVG(T2.HCT) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.HCT < 29 AND STRFTIME('%Y', T2.Date) = '1991'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "In 1991, from laboratory examinations, what is the average hematocrit level that is below the normal range?",
+   "2": "Considering the lab tests done in 1991, what is the mean hematocrit value that falls below the normal range?",
+   "3": "In 1991, for lab tests, what's the average hematocrit value that falls below the normal range?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1241,
+  "db": "thrombosis_prediction",
+  "difficulty": "challenging",
+  "question": "For patients with abnormal platelet level, state the number of patients with lower than normal range. How is it compare to the number of patients with higher than normal range?",
+  "sql": "SELECT SUM(CASE WHEN T2.PLT <= 100 THEN 1 ELSE 0 END) - SUM(CASE WHEN T2.PLT >= 400 THEN 1 ELSE 0 END) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For patients with abnormal platelet level, what is the number of patients with lower than normal range? How does it compare to the number of patients with higher than normal range?",
+   "2": "Among patients whose platelet levels are abnormal, how many have counts below the normal range, and how does that figure compare with the number of patients whose counts are above the normal range?",
+   "3": "Among the patients whose platelet levels are not normal, how many have counts below the normal range, and how does that count compare with the number of patients whose counts are above the normal range?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1249,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "Please list the disease names of the patients that have a proteinuria level higher than normal.",
+  "sql": "SELECT T1.Diagnosis FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.`U-PRO` >= 30",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Kindly list the disease names of the patients whose proteinuria level is higher than normal.",
+   "2": "Identify the names of the diseases for patients whose proteinuria level exceeds the normal range.",
+   "3": "What are the names of the diseases for patients whose proteinuria is above the normal range?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1253,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "For the patient who has the highest Ig A within the normal range, what is his or her diagnosis?",
+  "sql": "SELECT patientData.Diagnosis FROM Patient AS patientData INNER JOIN Laboratory AS labData ON patientData.ID = labData.ID WHERE labData.IGA BETWEEN 80 AND 500 ORDER BY labData.IGA DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For the patient whose Ig A is the highest within the normal range, what is his or her diagnosis?",
+   "2": "Identify the diagnosis of the patient whose IgA level is the highest but still within the normal range.",
+   "3": "Which diagnosis belongs to the patient whose IgA is the highest while still being within the normal range?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1254,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "How many patients with a normal Ig A level came to the hospital after 1990/1/1?",
+  "sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.IGA BETWEEN 80 AND 500 AND  strftime('%Y',  T1.`First Date`) > '1990'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many patients with a normal IgA level visited the hospital after 1990/1/1?",
+   "2": "What is the count of patients who have a normal Ig A level and whose hospital visit occurred after January 1, 1990?",
+   "3": "What is the count of patients who had a normal IgA level and were admitted to the hospital after January 1, 1990?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1256,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "How many patients with a abnormal C-reactive protein don't have their data recorded?",
+  "sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE (T2.CRP = '+' ) AND T1.Description IS NULL",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many patients with an abnormal C-reactive protein do not have their data recorded?",
+   "2": "What is the count of patients who have abnormal C-reactive protein but no recorded data?",
+   "3": "What's the number of patients who have abnormal C-reactive protein but whose information isn't recorded?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1257,
+  "db": "thrombosis_prediction",
+  "difficulty": "challenging",
+  "question": "Among the patients whose creatinine level is abnormal, how many of them aren't 70 yet?",
+  "sql": "SELECT COUNT(DISTINCT T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.CRE >= 1.5 AND STRFTIME('%Y', Date('now')) - STRFTIME('%Y', T1.Birthday) < 70",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Of the patients with an abnormal creatinine level, how many are not yet 70?",
+   "2": "What is the number of patients under the age of 70 who have an abnormal creatinine level?",
+   "3": "Out of the patients with abnormal creatinine levels, how many are under the age of 70?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1258,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "How many patients with a normal Rhuematoid Factor has a positive measure of degree of coagulation?",
+  "sql": "SELECT COUNT(DISTINCT T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID INNER JOIN Examination AS T3 ON T3.ID = T2.ID WHERE (T2.RA = '-' OR T2.RA = '+-') AND T3.KCT = '+'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many patients with a normal Rheumatoid Factor have a positive measure of coagulation degree?",
+   "2": "What is the count of patients who have a normal Rheumatoid Factor and show a positive measurement of coagulation degree?",
+   "3": "What is the count of patients who have a normal Rheumatoid Factor and also show a positive result for the degree of coagulation?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1274,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "For the patients whose anti-SSB are normal, how many of them have other symptoms observed in their examination?",
+  "sql": "SELECT COUNT(DISTINCT T1.ID) FROM Examination AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.SSB = 'negative' OR '0' AND T1.Symptoms IS NOT NULL",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For the patients with normal anti-SSB, how many of them have other symptoms noted in their examination?",
+   "2": "Among the patients with normal anti-SSB, what is the count of those who have other symptoms noted during their examination?",
+   "3": "Among the patients with normal anti-SSB, what number of them have additional symptoms found during their exam?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1276,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "For the patients who have an abnormal level of anti-DNA, please list the diseases they are diagnosed with.",
+  "sql": "SELECT DISTINCT(T1.Diagnosis) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.DNA >= 8",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For the patients with an abnormal level of anti-DNA, list the diseases they have been diagnosed with.",
+   "2": "Identify the diseases that patients with abnormal anti-DNA levels have been diagnosed with.",
+   "3": "Which diseases are diagnosed in patients whose anti-DNA levels are abnormal?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1278,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "Of the patients with an normal level of IGG, how many of them admitted to the hospital?",
+  "sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.IGG > 900 AND T2.IGG <2000 AND  T1.Admission = '+'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Of the patients with a normal level of IGG, how many were admitted to the hospital?",
+   "2": "Among the patients whose IGG is at a normal level, what is the number who were admitted to the hospital?",
+   "3": "How many patients who had a normal IGG level were admitted to the hospital?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1279,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "What is the percentage of patient who has a abnormal level of glutamic oxaloacetic transaminase level, yet he or she is diagnosed with SLE?",
+  "sql": "SELECT COUNT(CASE WHEN T1.Diagnosis LIKE '%SLE%' THEN T1.ID ELSE 0 END) / COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.`GOT` >= 60",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What percentage of patients have an abnormal glutamic oxaloacetic transaminase level, yet are diagnosed with SLE?",
+   "2": null,
+   "3": "What proportion of patients have an abnormal glutamic oxaloacetic transaminase level while also being diagnosed with SLE?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 0,
+   "3": 1
+  },
+  "rewrite_ok": false
+ },
+ {
+  "qid": 1283,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "For the patients with the normal glutamic pylvic transaminase level, how many of them are male?",
+  "sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GOT < 60 AND T1.SEX = 'M'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "For the patients with a normal glutamic pylvic transaminase level, how many of them are male?",
+   "2": "Among the patients whose glutamic pylvic transaminase level is normal, what is the number of males?",
+   "3": "How many of the patients who have a normal glutamic pylvic transaminase level are men?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1285,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "When is the latest patient's medical data recorded? This patient should have an abnormal level of lactate dehydrogenase.",
+  "sql": "SELECT T1.`First Date` FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.LDH >= 500 ORDER BY T1.`First Date` DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "When was the most recent medical data recorded for the latest patient? This patient should have an abnormal level of lactate dehydrogenase.",
+   "2": "What is the most recent date on which medical data was recorded for the patient with an abnormal lactate dehydrogenase level?",
+   "3": "What date was the most recent medical data entered for a patient who has an abnormal lactate dehydrogenase level?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1287,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "Among the patients followed at the outpatient clinic, how many of them have a normal level of alkaliphophatase?",
+  "sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.ALP < 300 AND T1.Admission = '-'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many of the patients followed at the outpatient clinic have a normal alkaliphophatase level?",
+   "2": "In the outpatient clinic's patient population, what is the count of individuals whose alkaline phosphatase is within the normal range?",
+   "3": "What is the number of patients seen at the outpatient clinic who have normal alkaline phosphatase levels?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1294,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "Please list the patient's ID whose creatinine level is normal and whose anti Cardiolipin antibody concentration level is the highest.",
+  "sql": "SELECT T2.ID FROM Laboratory AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID WHERE T1.CRE < 1.5 ORDER BY T2.`aCL IgA` DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Please list the patient ID whose creatinine level is normal and whose anti Cardiolipin antibody concentration level is highest.",
+   "2": "Identify the patient ID that has a normal creatinine level and the highest concentration of anti Cardiolipin antibody.",
+   "3": "Can you tell me the ID of the patient who has a normal creatinine level and the highest anti Cardiolipin antibody concentration?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1305,
+  "db": "thrombosis_prediction",
+  "difficulty": "moderate",
+  "question": "How many patients accepted to the hospital have a normal level of white blood cells?",
+  "sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.WBC BETWEEN 3.5 AND 9 AND T1.Admission = '+'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many patients admitted to the hospital have a normal white blood cell level?",
+   "2": "What is the count of hospital-admitted patients whose white blood cell level is normal?",
+   "3": "What's the count of hospital admissions where the white blood cell count is within the normal range?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1306,
+  "db": "thrombosis_prediction",
+  "difficulty": "simple",
+  "question": "How many patients diagnosed with SLE have a normal white blood cell level?",
+  "sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.Diagnosis = 'SLE' AND T2.WBC BETWEEN 3.5 AND 9",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many patients with a diagnosis of SLE have a normal white blood cell level?",
+   "2": "What is the count of patients with an SLE diagnosis whose white blood cell level is normal?",
+   "3": "What is the count of patients who have been diagnosed with SLE and whose white blood cell level is normal?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1321,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "How many events of the Student_Club did Sacha Harrison attend in 2019?",
+  "sql": "SELECT COUNT(T1.event_id) FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T3.first_name = 'Sacha' AND T3.last_name = 'Harrison' AND SUBSTR(T1.event_date, 1, 4) = '2019'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the number of Student_Club events that Sacha Harrison attended in 2019?",
+   "2": "What is the total number of Student_Club events that Sacha Harrison went to during 2019?",
+   "3": "What was the total number of Student_Club events that Sacha Harrison went to during 2019?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1326,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "How many members of the Student_Club have majored Environmental Engineering?\n",
+  "sql": "SELECT COUNT(T1.member_id) FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.major_name = 'Environmental Engineering'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many Student_Club members majored in Environmental Engineering?",
+   "2": "What is the count of Student_Club members whose major is Environmental Engineering?",
+   "3": "What's the count of Student_Club members whose major was Environmental Engineering?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1331,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "What is the amount of the funds that the Vice President received?",
+  "sql": "SELECT T2.amount FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.position = 'Vice President'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How much funds did the Vice President receive?",
+   "2": "How much money did the Vice President get?",
+   "3": "How much money did the Vice President get?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1337,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "What is the total budgeted amount for all category in \"October Speaker\" event?",
+  "sql": "SELECT SUM(T2.amount) FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_name = 'October Speaker'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the total budgeted amount for every category in the \"October Speaker\" event?",
+   "2": "How much money in total was budgeted across every category for the event called \"October Speaker\"?",
+   "3": "How much money in total was budgeted across every category for the October Speaker event?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1342,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "What was the cost for the \"Posters\" on 2019/9/4?",
+  "sql": "SELECT cost FROM expense WHERE expense_description = 'Posters' AND expense_date = '2019-09-04'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How much did the \"Posters\" cost on 2019/9/4?",
+   "2": "How much did the Posters come to on September 4, 2019?",
+   "3": "How much did the Posters cost on September 4, 2019?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1344,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "What was the notes of the fundraising on 2019/9/14?",
+  "sql": "SELECT notes FROM income WHERE source = 'Fundraising' AND date_received = '2019-09-14'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What were the notes for the fundraising on 2019/9/14?",
+   "2": "On September 14, 2019, what did the notes say regarding the fundraising?",
+   "3": "On September 14, 2019, what did the fundraising notes say?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1349,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "Provide the total number of the budget amount for \"September Speaker\" event.",
+  "sql": "SELECT SUM(T1.amount) FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id WHERE T2.event_name = 'September Speaker'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the total budget amount for the \"September Speaker\" event?",
+   "2": "What is the sum of the budget amount allocated to the \"September Speaker\" event?",
+   "3": "What is the total budget amount allocated for the \"September Speaker\" event?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1351,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "What was Brent Thomason's major?",
+  "sql": "SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.first_name = 'Brent' AND T1.last_name = 'Thomason'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What major did Brent Thomason have?",
+   "2": "What subject did Brent Thomason study as their main focus?",
+   "3": "What field of study did Brent Thomason pursue?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1352,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "For all the club members from \"Business\" major, how many of them wear medium size t-shirt?",
+  "sql": "SELECT COUNT(T1.member_id) FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.major_name = 'Business' AND T1.t_shirt_size = 'Medium'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many club members majoring in \"Business\" wear a medium size t-shirt?",
+   "2": "Among the club members whose major is Business, what is the count of those with a medium t-shirt size?",
+   "3": "How many club members who are Business majors have a medium t-shirt size?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1356,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "Which department was the President of the club in?",
+  "sql": "SELECT T2.department FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.position = 'President'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What department was the club President in?",
+   "2": "What department did the club President belong to?",
+   "3": "What department did the club's President belong to?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1360,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "What percentage was the budget for Parking to the total budget for the \"November Speaker\"?",
+  "sql": "SELECT CAST(SUM(CASE WHEN T1.category = 'Parking' THEN T1.amount ELSE 0 END) AS REAL) * 100 / SUM(T1.amount) FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id WHERE T2.event_name = 'November Speaker'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What percentage of the total budget for the \"November Speaker\" was the budget for Parking?",
+   "2": "For the \"November Speaker\", what was the share of the Parking budget out of the total budget, expressed as a percentage?",
+   "3": "In the \"November Speaker\" budget, what portion of the total was allocated to Parking, expressed as a percentage?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1363,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "List all of the College of Humanities and Social Sciences' departments.",
+  "sql": "SELECT department FROM major WHERE college = 'College of Humanities and Social Sciences'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Name all departments belonging to the College of Humanities and Social Sciences.",
+   "2": "What departments can be found within the College of Humanities and Social Sciences?",
+   "3": "What are the departments within the College of Humanities and Social Sciences?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1364,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "Where is Amy Firth's hometown?",
+  "sql": "SELECT T2.city, T2.county, T2.state FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Amy' AND T1.last_name = 'Firth'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the hometown of Amy Firth?",
+   "2": "In which location is the hometown of Amy Firth?",
+   "3": "What town does Amy Firth come from?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1374,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "How many events did the member with the phone number \"954-555-6240\" attend?",
+  "sql": "SELECT COUNT(T2.link_to_event) FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member WHERE T1.phone = '954-555-6240'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What number of events did the member whose phone number is \"954-555-6240\" attend?",
+   "2": "What is the total number of events attended by the member whose phone number is \"954-555-6240\"?",
+   "3": "What is the total number of events attended by the member whose phone number is 954-555-6240?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1379,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "How many meeting events were held in 2020?",
+  "sql": "SELECT COUNT(event_id) FROM event WHERE type = 'Meeting' AND SUBSTR(event_date, 1, 4) = '2020'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "How many meeting events took place in 2020?",
+   "2": "What is the total number of meeting events that took place in 2020?",
+   "3": "What was the total number of meeting events that took place in 2020?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1391,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "What is the ratio between students majored in finance and physics?",
+  "sql": "SELECT SUM(CASE WHEN major_name = 'Finance' THEN 1 ELSE 0 END) / SUM(CASE WHEN major_name = 'Physics' THEN 1 ELSE 0 END) AS ratio FROM major",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the ratio of students majoring in finance to those majoring in physics?",
+   "2": "How many times greater is the number of students whose major is finance compared to those whose major is physics?",
+   "3": "How many times more students are there in finance compared to physics?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1403,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "Indicate the name of the closed event whose cost has exceeded the budget the most.",
+  "sql": "SELECT T2.event_name FROM budget AS T1 INNER JOIN event AS T2 ON T2.event_id = T1.link_to_event WHERE T1.event_status = 'Closed' AND T1.remaining < 0 ORDER BY T1.remaining LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "State the name of the closed event whose cost has surpassed the budget the most.",
+   "2": "Which closed event went furthest over its budget, and what is its name?",
+   "3": null
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 0
+  },
+  "rewrite_ok": false
+ },
+ {
+  "qid": 1408,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "Calculate the total cost spent for Parking in the list.",
+  "sql": "SELECT SUM(cost) FROM expense WHERE expense_description = 'Parking'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Determine the total cost spent on Parking in the list.",
+   "2": "What is the sum of the costs for Parking entries in the list?",
+   "3": "What is the overall amount that was spent on Parking in the list?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1409,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "Mention the total expense used on 8/20/2019.",
+  "sql": "SELECT SUM(cost) FROM expense WHERE expense_date = '2019-08-20'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What was the total expense on 8/20/2019?",
+   "2": "How much money was spent in total on August 20, 2019?",
+   "3": "What was the total amount of expenses for August 20, 2019?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1417,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "List out the type of events which have remaining budget more than 30 USD.",
+  "sql": "SELECT T1.type FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T2.remaining > 30",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "List the types of events that have a remaining budget greater than 30 USD.",
+   "2": "Identify the event types whose leftover budget exceeds 30 dollars.",
+   "3": "Show me the event types where the leftover budget is greater than 30 dollars."
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1422,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "State the category of events were held at MU 215.",
+  "sql": "SELECT DISTINCT T2.category FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.location = 'MU 215'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What category of events took place at MU 215?",
+   "2": "What is the category of the events that took place in MU 215?",
+   "3": "What type of events took place in MU 215?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1424,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "Among the members, how many of them have an extra large t-shirt size?",
+  "sql": "SELECT COUNT(member_id) FROM member WHERE position = 'Member' AND t_shirt_size = 'X-Large'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Of the members, how many have an extra large t-shirt size?",
+   "2": "What is the count of members whose t-shirt size is extra large?",
+   "3": "What number of members wear an extra large t-shirt?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1427,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "What are the budget category of the events located at MU 215 and a guest speaker type with a 0 budget spent?",
+  "sql": "SELECT DISTINCT T2.category, T1.type FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.location = 'MU 215' AND T2.spent = 0 AND T1.type = 'Guest Speaker'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What is the budget category of the events located at MU 215 and a guest speaker type with 0 budget spent?",
+   "2": "Which budget category applies to events held in MU 215 that have a guest speaker type and show no budget spent?",
+   "3": "What budget category applies to events that are held in MU 215 and have a guest speaker type with no money spent?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1431,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "List the last name of the members of the club that attended the women's soccer event.",
+  "sql": "SELECT T3.last_name FROM attendance AS T1 INNER JOIN event AS T2 ON T2.event_id = T1.link_to_event INNER JOIN member AS T3 ON T1.link_to_member = T3.member_id WHERE T2.event_name = 'Women''s Soccer' AND T3.position = 'Member'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Provide the last name of club members who attended the women's soccer event.",
+   "2": "What are the surnames of the club members who were present at the women's soccer event?",
+   "3": "What are the surnames of the club members who showed up to the women's soccer event?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1432,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "Among the members with t-shirt size of medium, what is the percentage of the amount 50 received by the Student_Club?",
+  "sql": "SELECT CAST(SUM(CASE WHEN T2.amount = 50 THEN 1.0 ELSE 0 END) AS REAL) * 100 / COUNT(T2.income_id) FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.position = 'Member' AND T1.t_shirt_size = 'Medium'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Of the members whose t-shirt size is medium, what percentage is the amount 50 received by the Student_Club?",
+   "2": "Within the Student_Club, for members whose t-shirt size is medium, what percentage does the amount of 50 represent?",
+   "3": null
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 0
+  },
+  "rewrite_ok": false
+ },
+ {
+  "qid": 1437,
+  "db": "student_club",
+  "difficulty": "challenging",
+  "question": "Which members who were approved from 1/10/2019 to 11/19/2019? Please identify the member who attended the event and the link to their event.",
+  "sql": "SELECT DISTINCT T1.link_to_member, T3.link_to_event FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id INNER JOIN attendance AS T3 ON T2.member_id = T3.link_to_member WHERE date(SUBSTR(T1.expense_date, 1, 10)) BETWEEN '2019-01-10' AND '2019-11-19' AND T1.approved = 'true'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Which members were approved between 1/10/2019 and 11/19/2019? Please identify the member who attended the event and the link to their event.",
+   "2": "Between 1/10/2019 and 11/19/2019, which approved members are there, and can you name the one who participated in the event along with the event's link?",
+   "3": "Can you tell me which members got approved between October 1, 2019 and November 19, 2019, and point out the one who went to the event along with the link to that event?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1439,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "Please list the phone numbers of the members who majored in business at the College of Agriculture and Applied Sciences.",
+  "sql": "SELECT T1.phone FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T2.major_name = 'Business' AND T2.college = 'College of Agriculture and Applied Sciences'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Could you list the phone numbers for members who studied business at the College of Agriculture and Applied Sciences?",
+   "2": "Provide the phone numbers for those members whose major was business and who attended the College of Agriculture and Applied Sciences.",
+   "3": "Could you give me the phone numbers for members whose major was business in the College of Agriculture and Applied Sciences?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1449,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "What is the name and major of members who had to spend more than a hundred dollars on an expense?",
+  "sql": "SELECT DISTINCT T1.first_name, T1.last_name, T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major INNER JOIN expense AS T3 ON T1.member_id = T3.link_to_member WHERE T3.cost > 100",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What are the name and major of members who had to spend over a hundred dollars on an expense?",
+   "2": "Which members spent over $100 on an expense, and what are their names and majors?",
+   "3": "Could you tell me which members spent over $100 on an expense, and what their names and majors are?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1451,
+  "db": "student_club",
+  "difficulty": "challenging",
+  "question": "Among the members who incurred expenses in more than one event, who paid the most amount?",
+  "sql": "SELECT T2.member_id FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id INNER JOIN budget AS T3 ON T1.link_to_budget = T3.budget_id INNER JOIN event AS T4 ON T3.link_to_event = T4.event_id GROUP BY T2.member_id HAVING COUNT(DISTINCT T4.event_id) > 1 ORDER BY SUM(T1.cost) DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Of the members who had expenses in more than one event, who paid the highest amount?",
+   "2": "Which member, out of those who have expenses recorded across multiple events, has made the highest payment?",
+   "3": "Which member, out of those who had expenses in multiple events, ended up paying the highest amount?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1455,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "Which budget allowed the most money for water, chips, and cookies?",
+  "sql": "SELECT T2.budget_id FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id WHERE T1.expense_description = 'Water, chips, cookies' ORDER BY T1.cost DESC LIMIT 1",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Which budget set aside the most money for water, chips, and cookies?",
+   "2": "For which budget was the largest amount of funding allocated to water, chips, and cookies?",
+   "3": "What was the maximum amount of money set aside for water, chips, and cookies, and which budget was that?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1456,
+  "db": "student_club",
+  "difficulty": "moderate",
+  "question": "List the full name of the top five members who spend the most money in the descending order of spending.",
+  "sql": "SELECT T3.first_name, T3.last_name FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T1.link_to_member = T3.member_id ORDER BY T2.spent DESC LIMIT 5",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "List the full name of the top five members who spend the most money in descending order of spending.",
+   "2": "Identify the five members with the highest total spending and provide their full names, arranged from the largest spender to the smallest.",
+   "3": "Can you give me the complete names of the five members with the highest total spending, ranked from largest to smallest?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1459,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "What is the major of Garrett Gerke and which department does it belong to?",
+  "sql": "SELECT T2.major_name, T2.department FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.first_name = 'Garrett' AND T1.last_name = 'Gerke'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "What department does Garrett Gerke's major belong to, and what is the major?",
+   "2": "Which department is associated with the major that Garrett Gerke has?",
+   "3": "Garrett Gerke's major is what, and what department is that major part of?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1465,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "Which budget category does the expense 'Posters' fall to?",
+  "sql": "SELECT DISTINCT T2.category FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id WHERE T1.expense_description = 'Posters'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Which budget category is the expense 'Posters' assigned to?",
+   "2": "What is the budget category that the 'Posters' expense belongs to?",
+   "3": "What is the budget category for the 'Posters' expense?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ },
+ {
+  "qid": 1466,
+  "db": "student_club",
+  "difficulty": "simple",
+  "question": "Write the full name of the club member with the position of 'Secretary' and list which college the club member belongs to.",
+  "sql": "SELECT T1.first_name, T1.last_name, college FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.position = 'Secretary'",
+  "base_family": "W2",
+  "rewrites": {
+   "1": "Provide the complete name of the club member holding the position of 'Secretary' and indicate which college the club member is affiliated with.",
+   "2": "Provide the complete name of the club member who holds the 'Secretary' position, along with the college they are affiliated with.",
+   "3": "Could you provide the complete name of the club member who holds the Secretary role, along with the college they are associated with?"
+  },
+  "rewrite_judge": {
+   "1": 1,
+   "2": 1,
+   "3": 1
+  },
+  "rewrite_ok": true
+ }
+]

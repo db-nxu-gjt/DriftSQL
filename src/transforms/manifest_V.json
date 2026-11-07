@@ -1,0 +1,280 @@
+{
+ "superhero": {
+  "db": "superhero",
+  "n_questions": 26,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "inject_nulls",
+     "table": "superhero",
+     "col": "superhero_name",
+     "frac": 0.05
+    }
+   ],
+   "2": [
+    {
+     "op": "inject_nulls",
+     "table": "superhero",
+     "col": "superhero_name",
+     "frac": 0.15
+    }
+   ],
+   "4": [
+    {
+     "op": "delete_top_value",
+     "table": "hero_attribute",
+     "col": "attribute_value",
+     "value": 35,
+     "frac": 0.5
+    }
+   ],
+   "5": [
+    {
+     "op": "delete_top_value",
+     "table": "hero_attribute",
+     "col": "attribute_value",
+     "value": 35,
+     "frac": 1.0
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "superhero",
+   "hot_col": "superhero_name",
+   "date_col": null,
+   "cat_table": "hero_attribute",
+   "cat_col": "attribute_value",
+   "top_value": 35,
+   "n_rows": 750
+  }
+ },
+ "student_club": {
+  "db": "student_club",
+  "n_questions": 19,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "inject_nulls",
+     "table": "member",
+     "col": "last_name",
+     "frac": 0.05
+    }
+   ],
+   "2": [
+    {
+     "op": "inject_nulls",
+     "table": "member",
+     "col": "last_name",
+     "frac": 0.15
+    }
+   ],
+   "3": [
+    {
+     "op": "shift_dates",
+     "table": "expense",
+     "col": "expense_date",
+     "years": 1
+    }
+   ],
+   "4": [
+    {
+     "op": "delete_top_value",
+     "table": "attendance",
+     "col": "link_to_event",
+     "value": "recLKj8BbTNqxFbTb",
+     "frac": 0.5
+    }
+   ],
+   "5": [
+    {
+     "op": "delete_top_value",
+     "table": "attendance",
+     "col": "link_to_event",
+     "value": "recLKj8BbTNqxFbTb",
+     "frac": 1.0
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "member",
+   "hot_col": "last_name",
+   "date_col": [
+    "expense",
+    "expense_date"
+   ],
+   "cat_table": "attendance",
+   "cat_col": "link_to_event",
+   "top_value": "recLKj8BbTNqxFbTb",
+   "n_rows": 33
+  }
+ },
+ "toxicology": {
+  "db": "toxicology",
+  "n_questions": 21,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "inject_nulls",
+     "table": "atom",
+     "col": "molecule_id",
+     "frac": 0.05
+    }
+   ],
+   "2": [
+    {
+     "op": "inject_nulls",
+     "table": "atom",
+     "col": "molecule_id",
+     "frac": 0.15
+    }
+   ],
+   "4": [
+    {
+     "op": "delete_top_value",
+     "table": "molecule",
+     "col": "label",
+     "value": "-",
+     "frac": 0.5
+    }
+   ],
+   "5": [
+    {
+     "op": "delete_top_value",
+     "table": "molecule",
+     "col": "label",
+     "value": "-",
+     "frac": 1.0
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "atom",
+   "hot_col": "molecule_id",
+   "date_col": null,
+   "cat_table": "molecule",
+   "cat_col": "label",
+   "top_value": "-",
+   "n_rows": 12333
+  }
+ },
+ "thrombosis_prediction": {
+  "db": "thrombosis_prediction",
+  "n_questions": 30,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "inject_nulls",
+     "table": "Patient",
+     "col": "Diagnosis",
+     "frac": 0.05
+    }
+   ],
+   "2": [
+    {
+     "op": "inject_nulls",
+     "table": "Patient",
+     "col": "Diagnosis",
+     "frac": 0.15
+    }
+   ],
+   "3": [
+    {
+     "op": "shift_dates",
+     "table": "Patient",
+     "col": "Birthday",
+     "years": 1
+    }
+   ],
+   "4": [
+    {
+     "op": "delete_top_value",
+     "table": "Patient",
+     "col": "SEX",
+     "value": "F",
+     "frac": 0.5
+    }
+   ],
+   "5": [
+    {
+     "op": "delete_top_value",
+     "table": "Patient",
+     "col": "SEX",
+     "value": "F",
+     "frac": 1.0
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "Patient",
+   "hot_col": "Diagnosis",
+   "date_col": [
+    "Patient",
+    "Birthday"
+   ],
+   "cat_table": "Patient",
+   "cat_col": "SEX",
+   "top_value": "F",
+   "n_rows": 1238
+  }
+ },
+ "california_schools": {
+  "db": "california_schools",
+  "n_questions": 18,
+  "checkpoints": {
+   "1": [
+    {
+     "op": "inject_nulls",
+     "table": "schools",
+     "col": "School",
+     "frac": 0.05
+    }
+   ],
+   "2": [
+    {
+     "op": "inject_nulls",
+     "table": "schools",
+     "col": "School",
+     "frac": 0.15
+    }
+   ],
+   "3": [
+    {
+     "op": "shift_dates",
+     "table": "schools",
+     "col": "OpenDate",
+     "years": 1
+    }
+   ],
+   "4": [
+    {
+     "op": "delete_top_value",
+     "table": "schools",
+     "col": "County",
+     "value": "Los Angeles",
+     "frac": 0.5
+    }
+   ],
+   "5": [
+    {
+     "op": "delete_top_value",
+     "table": "schools",
+     "col": "County",
+     "value": "Los Angeles",
+     "frac": 1.0
+    }
+   ]
+  },
+  "targets": {
+   "hot_table": "schools",
+   "hot_col": "School",
+   "date_col": [
+    "schools",
+    "OpenDate"
+   ],
+   "cat_table": "schools",
+   "cat_col": "County",
+   "top_value": "Los Angeles",
+   "n_rows": 17686
+  }
+ }
+}
