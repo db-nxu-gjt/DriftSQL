@@ -1,7 +1,7 @@
-# DriftSQL: Benchmarking and Monitoring Silent Data Drift in Text-to-SQL Systems
-
-Code and data release for the TKDE submission *"DriftSQL: Benchmarking and
-Monitoring Silent Data Drift in Text-to-SQL Systems"*.
+Code and data release for the ICDE 2027 submission (EAB category)
+*"DriftSQL: Benchmarking and Monitoring Silent Data Drift in Text-to-SQL
+Systems"* by Jintao Gao (School of Information Engineering, Ningxia
+University).
 
 Text-to-SQL pipelines are usually validated once, at deployment time, against
 a frozen database snapshot. Real databases evolve — schemas are renamed,
